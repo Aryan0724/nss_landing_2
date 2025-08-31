@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NSS GEHU Bhimtal - Coming Soon</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #111827; /* Dark background for contrast */
+            color: #F3F4F6;
+            overflow-x: hidden;
+        }
+
+        /* Hero Video Background */
+        #video-bg {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translateX(-50%) translateY(-50%);
+            object-fit: cover;
+        }
+
+        .hero-overlay {
+            background-color: rgba(17, 24, 39, 0.8); /* Darker overlay for text readability */
+        }
+        
+        /* Custom Red Color */
+        .text-custom-red {
+            color: #EF4444; /* A vibrant light red */
+        }
+        .bg-custom-red {
+            background-color: #EF4444;
+        }
+        .border-custom-red {
+            border-color: #EF4444;
+        }
+
+        /* Animation Keyframes */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+         @keyframes slideInRight {
+            from { opacity: 0; transform: translateX(50px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            animation: fadeIn 1.5s ease-out forwards;
+        }
+        .fade-in-up {
+            animation: fadeInUp 1s ease-out forwards;
+            opacity: 0;
+        }
+
+        /* Staggered animation */
+        .stagger-1 { animation-delay: 0.2s; }
+        .stagger-2 { animation-delay: 0.4s; }
+        .stagger-3 { animation-delay: 0.6s; }
+        .stagger-4 { animation-delay: 0.8s; }
+        .stagger-5 { animation-delay: 1.0s; }
+
+
+        /* Scroll-triggered animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        /* Card hover effect */
+        .gallery-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .gallery-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px -5px rgba(239, 68, 68, 0.2), 0 10px 10px -5px rgba(239, 68, 68, 0.1);
+        }
+
+        .faq-answer {
+             transition: max-height 0.5s ease-in-out;
+        }
+        
+        /* Event Tabs */
+        .tab-btn.active {
+            border-bottom-color: #EF4444;
+            color: #EF4444;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 bg-gray-900/80 backdrop-blur-sm z-50 fade-in">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="https://gehu.ac.in/bhimtal/wp-content/uploads/2025/04/bhimtal-logo.webp" alt="College Logo" class="h-12 md:h-14" onerror="this.onerror=null;this.src='https.placehold.co/150x50/111827/FFFFFF?text=GEHU+Logo';">
+                <img src="https://nss.gov.in/sites/all/themes/youthaffair/logo.png" alt="NSS Logo" class="h-12 md:h-14" onerror="this.onerror=null;this.src='https.placehold.co/150x50/111827/FFFFFF?text=NSS+Logo';">
+            </div>
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex items-center space-x-6">
+                <a href="#about" class="text-gray-300 hover:text-custom-red transition">About</a>
+                <a href="#events" class="text-gray-300 hover:text-custom-red transition">Events</a>
+                <a href="#team" class="text-gray-300 hover:text-custom-red transition">Team</a>
+                <a href="#gallery" class="text-gray-300 hover:text-custom-red transition">Gallery</a>
+                <a href="#faq" class="text-gray-300 hover:text-custom-red transition">FAQ</a>
+                <a href="#notify" class="bg-custom-red text-white font-bold py-2 px-5 rounded-lg hover:bg-red-700 transition duration-300">Get Notified</a>
+            </nav>
+            <!-- Mobile Menu Button -->
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900">
+            <a href="#about" class="block py-2 px-6 text-sm text-gray-300 hover:bg-gray-800">About</a>
+            <a href="#events" class="block py-2 px-6 text-sm text-gray-300 hover:bg-gray-800">Events</a>
+            <a href="#team" class="block py-2 px-6 text-sm text-gray-300 hover:bg-gray-800">Team</a>
+            <a href="#gallery" class="block py-2 px-6 text-sm text-gray-300 hover:bg-gray-800">Gallery</a>
+            <a href="#faq" class="block py-2 px-6 text-sm text-gray-300 hover:bg-gray-800">FAQ</a>
+            <a href="#notify" class="block py-2 px-6 text-sm text-gray-300 hover:bg-gray-800">Get Notified</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-screen flex items-center justify-center text-center overflow-hidden">
+        <div class="video-container">
+            <iframe id="video-bg"
+                src="https://www.youtube.com/embed/QseelsLZDKo?autoplay=1&mute=1&loop=1&playlist=QseelsLZDKo&controls=0&showinfo=0&autohide=1&modestbranding=1&rel=0"
+                frameborder="0"
+                allow="autoplay; encrypted-media"
+                allowfullscreen>
+            </iframe>
+        </div>
+        <div class="hero-overlay absolute top-0 left-0 w-full h-full"></div>
+        <div class="relative z-10 px-4">
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-4 fade-in-up stagger-1">NSS UNIT <span class="text-custom-red">GEHU BHIMTAL</span></h1>
+            <h2 class="text-xl md:text-3xl font-light text-gray-300 mb-2 fade-in-up stagger-2">स्वयं से पहले आप | Not Me But You</h2>
+            <p class="text-lg md:text-2xl text-gray-200 mt-4 mb-8 max-w-3xl mx-auto fade-in-up stagger-3">Our new website is launching soon. Join us in our mission to build a better nation through community service.</p>
+            <div id="countdown" class="text-3xl md:text-5xl font-bold text-white flex justify-center space-x-4 md:space-x-8 mb-8 fade-in-up stagger-4">
+                <div><span id="days"></span><p class="text-sm font-normal">Days</p></div>
+                <div><span id="hours"></span><p class="text-sm font-normal">Hours</p></div>
+                <div><span id="minutes"></span><p class="text-sm font-normal">Minutes</p></div>
+                <div><span id="seconds"></span><p class="text-sm font-normal">Seconds</p></div>
+            </div>
+            <a href="#notify" class="bg-custom-red text-white font-bold py-3 px-8 rounded-lg text-lg hover:bg-red-700 transition duration-300 transform hover:scale-105 fade-in-up stagger-5">Stay Updated</a>
+        </div>
+    </section>
+
+    <!-- About NSS Section -->
+    <section id="about" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">The National Service Scheme (NSS)</h2>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto">The sole aim of the NSS is to provide hands-on experience to young students in delivering community service. It's a platform for students to develop their personality while making a tangible impact on society.</p>
+            </div>
+            <div class="flex flex-wrap -mx-4">
+                <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8 reveal">
+                    <div class="bg-gray-900 p-8 rounded-lg h-full">
+                        <h3 class="text-2xl font-bold text-custom-red mb-3">Our Mission</h3>
+                        <p class="text-gray-300">To arouse social consciousness of the youth with an overall objective of personality development of the students through community service.</p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 lg:w-1/3 px-4 mb-8 reveal" style="transition-delay: 0.2s;">
+                    <div class="bg-gray-900 p-8 rounded-lg h-full">
+                        <h3 class="text-2xl font-bold text-custom-red mb-3">Our Vision</h3>
+                        <p class="text-gray-300">To build the youth with the mind and spirit to serve the society and work for the social uplift of the down-trodden masses of our nation as a movement for value based education.</p>
+                    </div>
+                </div>
+                <div class="w-full lg:w-1/3 px-4 mb-8 reveal" style="transition-delay: 0.4s;">
+                    <div class="bg-gray-900 p-8 rounded-lg h-full">
+                        <h3 class="text-2xl font-bold text-custom-red mb-3">Core Activities</h3>
+                        <p class="text-gray-300">From tree plantation drives and blood donation camps to cleanliness campaigns and educational programs in rural areas, we are constantly working towards a better tomorrow.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+     <!-- Our Core Objectives Section -->
+    <section class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Core Objectives</h2>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto">Guiding principles that form the foundation of every activity we undertake.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Objective 1 -->
+                <div class="bg-gray-800 p-6 rounded-lg reveal">
+                    <h3 class="text-xl font-bold text-custom-red mb-2">Community Understanding</h3>
+                    <p class="text-gray-400">To understand the community we work in and to understand ourselves in relation to our community.</p>
+                </div>
+                <!-- Objective 2 -->
+                <div class="bg-gray-800 p-6 rounded-lg reveal" style="transition-delay: 0.1s;">
+                    <h3 class="text-xl font-bold text-custom-red mb-2">Social Responsibility</h3>
+                    <p class="text-gray-400">To develop a sense of social and civic responsibility among students.</p>
+                </div>
+                <!-- Objective 3 -->
+                <div class="bg-gray-800 p-6 rounded-lg reveal" style="transition-delay: 0.2s;">
+                    <h3 class="text-xl font-bold text-custom-red mb-2">Problem Solving</h3>
+                    <p class="text-gray-400">To identify community needs and problems and involve them in the problem-solving process.</p>
+                </div>
+                <!-- Objective 4 -->
+                <div class="bg-gray-800 p-6 rounded-lg reveal" style="transition-delay: 0.3s;">
+                    <h3 class="text-xl font-bold text-custom-red mb-2">Leadership & Democracy</h3>
+                    <p class="text-gray-400">To acquire leadership qualities and democratic attitudes for a better society.</p>
+                </div>
+                <!-- Objective 5 -->
+                <div class="bg-gray-800 p-6 rounded-lg reveal" style="transition-delay: 0.4s;">
+                    <h3 class="text-xl font-bold text-custom-red mb-2">Emergency Preparedness</h3>
+                    <p class="text-gray-400">To develop the capacity to meet emergencies and natural disasters effectively.</p>
+                </div>
+                <!-- Objective 6 -->
+                <div class="bg-gray-800 p-6 rounded-lg reveal" style="transition-delay: 0.5s;">
+                    <h3 class="text-xl font-bold text-custom-red mb-2">National Integration</h3>
+                    <p class="text-gray-400">To practice and promote national integration and social harmony among all communities.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Events Section -->
+    <section id="events" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Events</h2>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto">Stay updated with our upcoming activities and browse through our successful past events.</p>
+            </div>
+            <!-- Event Tabs -->
+            <div class="flex justify-center border-b border-gray-700 mb-8 reveal">
+                <button class="tab-btn active py-4 px-6 text-lg font-semibold border-b-2 border-transparent transition" data-target="upcoming-events">Upcoming</button>
+                <button class="tab-btn py-4 px-6 text-lg font-semibold border-b-2 border-transparent text-gray-400 transition" data-target="past-events">Past</button>
+            </div>
+            
+            <!-- Tab Content -->
+            <div id="upcoming-events" class="tab-content reveal">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                    <!-- Upcoming Event 1 -->
+                    <div class="bg-gray-900 rounded-lg overflow-hidden gallery-card">
+                        <div class="p-6">
+                            <p class="text-custom-red font-semibold text-sm mb-1">October 15, 2025</p>
+                            <h3 class="text-2xl font-bold text-white mb-2">Annual Blood Donation Camp</h3>
+                            <p class="text-gray-400 mb-4">Join us in the noble cause of saving lives. Every drop counts. The camp will be held at the university auditorium.</p>
+                            <a href="#notify" class="inline-block bg-custom-red text-white font-bold py-2 px-5 rounded-lg hover:bg-red-700 transition duration-300">Register to Donate</a>
+                        </div>
+                    </div>
+                    <!-- Upcoming Event 2 -->
+                    <div class="bg-gray-900 rounded-lg overflow-hidden gallery-card">
+                        <div class="p-6">
+                            <p class="text-custom-red font-semibold text-sm mb-1">November 5, 2025</p>
+                            <h3 class="text-2xl font-bold text-white mb-2">Campus Beautification Drive</h3>
+                            <p class="text-gray-400 mb-4">Let's come together to make our campus greener and cleaner. We'll be planting new saplings and cleaning key areas.</p>
+                            <a href="#notify" class="inline-block bg-gray-700 text-white font-bold py-2 px-5 rounded-lg hover:bg-gray-600 transition duration-300">I'm Interested</a>
+                        </div>
+                    </div>
+                </div>
+                 <p class="text-center mt-8 text-gray-500">More events coming soon. Stay tuned!</p>
+            </div>
+
+            <div id="past-events" class="tab-content hidden reveal">
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Past Event 1 -->
+                    <div class="bg-gray-900 p-6 rounded-lg gallery-card">
+                        <p class="text-gray-500 font-semibold text-sm mb-1">August 20, 2025</p>
+                        <h3 class="text-xl font-bold text-white mb-2">Village Educational Outreach</h3>
+                        <p class="text-gray-400">Our volunteers spent a day in a nearby village, teaching basic computer skills and hygiene practices to children.</p>
+                    </div>
+                    <!-- Past Event 2 -->
+                    <div class="bg-gray-900 p-6 rounded-lg gallery-card">
+                        <p class="text-gray-500 font-semibold text-sm mb-1">July 10, 2025</p>
+                        <h3 class="text-xl font-bold text-white mb-2">Digital India Awareness</h3>
+                        <p class="text-gray-400">Conducted a workshop on campus to promote digital literacy and safe online practices among students and staff.</p>
+                    </div>
+                    <!-- Past Event 3 -->
+                    <div class="bg-gray-900 p-6 rounded-lg gallery-card">
+                        <p class="text-gray-500 font-semibold text-sm mb-1">June 05, 2025</p>
+                        <h3 class="text-xl font-bold text-white mb-2">World Environment Day Rally</h3>
+                        <p class="text-gray-400">Organized a rally in Bhimtal town to raise awareness about environmental conservation and plastic pollution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meet the Team Section -->
+    <section id="team" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Meet Our Core Team</h2>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto">The driving force behind our initiatives. A dedicated group of faculty and students committed to service.</p>
+            </div>
+            <div class="flex flex-wrap justify-center -mx-4">
+                <!-- Team Member 1: Programme Officer -->
+                <div class="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8 reveal">
+                    <div class="bg-gray-800 p-6 rounded-lg text-center h-full gallery-card">
+                        <img src="https://placehold.co/200x200/EF4444/FFFFFF?text=Photo" alt="Programme Officer" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                        <h3 class="text-xl font-bold text-white mb-1">Dr. [Faculty Name]</h3>
+                        <p class="text-custom-red font-semibold mb-2">Programme Officer</p>
+                        <p class="text-gray-400 text-sm">"Guiding our students to become compassionate leaders and responsible citizens."</p>
+                    </div>
+                </div>
+                <!-- Team Member 2: Student President -->
+                <div class="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8 reveal" style="transition-delay: 0.2s;">
+                    <div class="bg-gray-800 p-6 rounded-lg text-center h-full gallery-card">
+                        <img src="https://placehold.co/200x200/EF4444/FFFFFF?text=Photo" alt="Student President" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                        <h3 class="text-xl font-bold text-white mb-1">[Student Name]</h3>
+                        <p class="text-custom-red font-semibold mb-2">Student President</p>
+                        <p class="text-gray-400 text-sm">"Together, we can create ripples of change that touch countless lives."</p>
+                    </div>
+                </div>
+                <!-- Team Member 3: Student Vice-President -->
+                <div class="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8 reveal" style="transition-delay: 0.4s;">
+                    <div class="bg-gray-800 p-6 rounded-lg text-center h-full gallery-card">
+                        <img src="https://placehold.co/200x200/EF4444/FFFFFF?text=Photo" alt="Student Vice-President" class="w-32 h-32 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                        <h3 class="text-xl font-bold text-white mb-1">[Student Name]</h3>
+                        <p class="text-custom-red font-semibold mb-2">Vice-President</p>
+                        <p class="text-gray-400 text-sm">"Service is not just an activity, it's a way of life. Let's live it."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Voices of Volunteers Section -->
+    <section class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Voices of Volunteers</h2>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto">Hear what our members have to say about their experience with NSS.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Testimonial 1 -->
+                <div class="bg-gray-900 p-8 rounded-lg reveal gallery-card">
+                    <p class="text-gray-300 italic mb-4">"NSS has completely transformed my perspective. It taught me the importance of empathy and gave me a family on campus. The skills I've learned here are invaluable."</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/100x100/EF4444/FFFFFF?text=S" alt="Volunteer 1" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-bold text-white">[Volunteer Name]</p>
+                            <p class="text-sm text-custom-red">Final Year Volunteer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 2 -->
+                <div class="bg-gray-900 p-8 rounded-lg reveal gallery-card" style="transition-delay: 0.2s;">
+                    <p class="text-gray-300 italic mb-4">"Being part of the annual special camp was an unforgettable experience. Living in a rural village and working for the community was humbling and incredibly rewarding."</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/100x100/EF4444/FFFFFF?text=A" alt="Volunteer 2" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-bold text-white">[Volunteer Name]</p>
+                            <p class="text-sm text-custom-red">Third Year Volunteer</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Testimonial 3 -->
+                <div class="bg-gray-900 p-8 rounded-lg reveal gallery-card" style="transition-delay: 0.4s;">
+                     <p class="text-gray-300 italic mb-4">"The leadership opportunities in NSS are amazing. I went from being a shy student to confidently leading a team for a major cleanliness drive. It's a huge confidence booster."</p>
+                    <div class="flex items-center">
+                        <img src="https://placehold.co/100x100/EF4444/FFFFFF?text=R" alt="Volunteer 3" class="w-12 h-12 rounded-full mr-4">
+                        <div>
+                            <p class="font-bold text-white">[Volunteer Name]</p>
+                            <p class="text-sm text-custom-red">NSS Alumni</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Our Impact in Numbers Section -->
+    <section id="impact" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Impact in Numbers</h2>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto">We believe in action. Here's a snapshot of what we've achieved together.</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-center">
+                <!-- Stat 1 -->
+                <div class="bg-gray-800 p-8 rounded-lg reveal gallery-card">
+                    <div class="text-5xl font-bold text-custom-red mb-2 counter" data-target="150">0</div>
+                    <p class="text-gray-400 text-lg">Volunteers Strong</p>
+                </div>
+                <!-- Stat 2 -->
+                <div class="bg-gray-800 p-8 rounded-lg reveal gallery-card" style="transition-delay: 0.2s;">
+                    <div class="text-5xl font-bold text-custom-red mb-2 counter" data-target="50">0</div>
+                    <p class="text-gray-400 text-lg">Events Organized</p>
+                </div>
+                <!-- Stat 3 -->
+                <div class="bg-gray-800 p-8 rounded-lg reveal gallery-card" style="transition-delay: 0.4s;">
+                    <div class="text-5xl font-bold text-custom-red mb-2 counter" data-target="300">0</div>
+                    <p class="text-gray-400 text-lg">Trees Planted</p>
+                </div>
+                <!-- Stat 4 -->
+                <div class="bg-gray-800 p-8 rounded-lg reveal gallery-card" style="transition-delay: 0.6s;">
+                    <div class="text-5xl font-bold text-custom-red mb-2 counter" data-target="5000">0</div>
+                    <p class="text-gray-400 text-lg">Hours of Service</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Our Work Gallery Section -->
+    <section id="gallery" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Our Activities in Action</h2>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto">A picture is worth a thousand words. Here are a few moments from our recent activities.</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Image 1 -->
+                <div class="reveal gallery-card bg-gray-900 rounded-lg overflow-hidden">
+                    <img src="https://placehold.co/600x400/1F2937/FFFFFF?text=Swachh+Bharat" alt="NSS Activity 1" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Swachh Bharat Abhiyan</h3>
+                        <p class="text-gray-400">Promoting cleanliness and hygiene in local communities.</p>
+                    </div>
+                </div>
+                <!-- Image 2 -->
+                <div class="reveal gallery-card bg-gray-900 rounded-lg overflow-hidden" style="transition-delay: 0.1s;">
+                    <img src="https://placehold.co/600x400/1F2937/FFFFFF?text=Tree+Plantation" alt="NSS Activity 2" class="w-full h-64 object-cover">
+                     <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Tree Plantation Drive</h3>
+                        <p class="text-gray-400">Contributing to a greener environment by planting saplings.</p>
+                    </div>
+                </div>
+                <!-- Image 3 -->
+                <div class="reveal gallery-card bg-gray-900 rounded-lg overflow-hidden" style="transition-delay: 0.2s;">
+                     <img src="https://placehold.co/600x400/1F2937/FFFFFF?text=Awareness+Rally" alt="NSS Activity 3" class="w-full h-64 object-cover">
+                     <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Awareness Rallies</h3>
+                        <p class="text-gray-400">Engaging the public on important social issues.</p>
+                    </div>
+                </div>
+                 <!-- Image 4 -->
+                <div class="reveal gallery-card bg-gray-900 rounded-lg overflow-hidden" style="transition-delay: 0.3s;">
+                     <img src="https://placehold.co/600x400/1F2937/FFFFFF?text=Cultural+Programs" alt="NSS Activity 4" class="w-full h-64 object-cover">
+                     <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Cultural Programs</h3>
+                        <p class="text-gray-400">Spreading social messages through cultural events.</p>
+                    </div>
+                </div>
+                 <!-- Image 5 -->
+                <div class="reveal gallery-card bg-gray-900 rounded-lg overflow-hidden" style="transition-delay: 0.4s;">
+                     <img src="https://placehold.co/600x400/1F2937/FFFFFF?text=Youth+Engagement" alt="NSS Activity 5" class="w-full h-64 object-cover">
+                     <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Youth Engagement</h3>
+                        <p class="text-gray-400">Organizing seminars to empower the youth with knowledge.</p>
+                    </div>
+                </div>
+                 <!-- Image 6 -->
+                <div class="reveal gallery-card bg-gray-900 rounded-lg overflow-hidden" style="transition-delay: 0.5s;">
+                     <img src="https://placehold.co/600x400/1F2937/FFFFFF?text=Community+March" alt="NSS Activity 6" class="w-full h-64 object-cover">
+                     <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">Community Marches</h3>
+                        <p class="text-gray-400">Marching together for a cause to raise public awareness.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 bg-gray-800">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-12 reveal">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4">Frequently Asked Questions</h2>
+                <p class="text-lg text-gray-400 max-w-3xl mx-auto">Have questions? We've got answers. Here are some of the most common queries we receive.</p>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <div class="space-y-4 reveal">
+                    <!-- FAQ Item 1 -->
+                    <div class="bg-gray-900 rounded-lg faq-item">
+                        <button class="w-full flex justify-between items-center text-left p-5 font-semibold text-white focus:outline-none faq-question">
+                            <span>Who can join the NSS unit?</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="px-5 pb-5 text-gray-400 max-h-0 overflow-hidden faq-answer">
+                            <p>Any bonafide student of Graphic Era Hill University, Bhimtal Campus can register to become an NSS volunteer. We welcome students from all courses and years who have a passion for community service.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 2 -->
+                    <div class="bg-gray-900 rounded-lg faq-item">
+                        <button class="w-full flex justify-between items-center text-left p-5 font-semibold text-white focus:outline-none faq-question">
+                            <span>What are the benefits of joining NSS?</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="px-5 pb-5 text-gray-400 max-h-0 overflow-hidden faq-answer">
+                            <p>Besides the satisfaction of serving the community, volunteers develop leadership, teamwork, and communication skills. Active volunteers who complete the mandatory hours of service are also eligible for an NSS Certificate from the Ministry of Youth Affairs and Sports, which holds significant value.</p>
+                        </div>
+                    </div>
+                    <!-- FAQ Item 3 -->
+                    <div class="bg-gray-900 rounded-lg faq-item">
+                        <button class="w-full flex justify-between items-center text-left p-5 font-semibold text-white focus:outline-none faq-question">
+                            <span>What is the time commitment required?</span>
+                            <svg class="w-5 h-5 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="px-5 pb-5 text-gray-400 max-h-0 overflow-hidden faq-answer">
+                            <p>An NSS volunteer is expected to put in at least 120 hours of service over a period of two years. This includes participation in regular activities and the Annual Special Camp. However, the true commitment is the passion you bring to the cause.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Get Notified Section -->
+    <section id="notify" class="py-20 bg-gray-900">
+        <div class="container mx-auto px-6">
+            <div class="bg-gray-800 rounded-lg shadow-xl p-8 md:p-12 lg:flex lg:items-center lg:justify-between reveal">
+                <div class="lg:w-1/2">
+                    <h2 class="text-3xl font-bold mb-2">Be the First to Know!</h2>
+                    <p class="text-gray-400 mb-6 lg:mb-0">Enter your details below, and we'll notify you the moment our full website goes live. Be a part of the movement from day one.</p>
+                </div>
+                <div class="lg:w-1/2">
+                    <form action="#" method="POST" class="flex flex-col sm:flex-row gap-4">
+                        <input type="email" name="email" placeholder="Enter your email address" class="w-full px-4 py-3 rounded-lg bg-gray-700 text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-custom-red" required>
+                        <button type="submit" class="bg-custom-red text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition duration-300 whitespace-nowrap">Notify Me</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 border-t border-gray-800">
+        <div class="container mx-auto px-6 py-8 text-center text-gray-400">
+            <div class="mb-4">
+                <h4 class="font-bold text-lg text-white">NSS UNIT - Graphic Era Hill University, Bhimtal</h4>
+                <p>P.O. Sattal, Bhimtal, District Nainital, Uttarakhand, India</p>
+                <p>For inquiries, contact us at: <a href="mailto:aryantiwari0724@gmail.com" class="text-custom-red hover:underline">aryantiwari0724@gmail.com</a></p>
+            </div>
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="hover:text-custom-red transition duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                </a>
+                <a href="#" class="hover:text-custom-red transition duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.585-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.585-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.07-1.645-.07-4.85s.012-3.585.07-4.85c.148-3.225 1.664-4.771 4.919 4.919 1.266-.057 1.645-.069 4.85-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.358-.2 6.78-2.618 6.98-6.98.059-1.281.073-1.689.073-4.948s-.014-3.667-.072-4.947c-.2-4.358-2.618-6.78-6.98-6.98C15.667.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z" /></svg>
+                </a>
+                 <a href="#" class="hover:text-custom-red transition duration-300">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19.615 3.185A7.948 7.948 0 0012 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12c0-2.29-.97-4.36-2.54-5.85l-1.845 1.845a5.955 5.955 0 11-4.243-1.757L12 9.586l3.536-3.536-2.05-2.05A7.957 7.957 0 0019.615 3.185z"/></svg>
+                </a>
+            </div>
+            <p>&copy; <span id="year"></span> NSS Unit, GEHU Bhimtal. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Countdown Timer Logic
+        const countdownDate = new Date("Dec 31, 2025 23:59:59").getTime();
+
+        const countdownFunction = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "<h1>Welcome!</h1>";
+            }
+        }, 1000);
+
+        // Set current year in footer
+        document.getElementById("year").innerText = new Date().getFullYear();
+
+        // Scroll Animation Logic
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - 100) { // Reveal when element is 100px from bottom
+                    el.classList.add('visible');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        // Trigger on load as well
+        revealOnScroll();
+
+        // FAQ Accordion Logic
+        const faqItems = document.querySelectorAll('.faq-item');
+
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const icon = question.querySelector('svg');
+
+            question.addEventListener('click', () => {
+                // Close other open FAQs
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        const otherAnswer = otherItem.querySelector('.faq-answer');
+                        const otherIcon = otherItem.querySelector('.faq-question svg');
+                        otherAnswer.style.maxHeight = '0';
+                        otherIcon.classList.remove('rotate-180');
+                    }
+                });
+
+                // Toggle current FAQ
+                if (answer.style.maxHeight && answer.style.maxHeight !== '0px') {
+                    answer.style.maxHeight = '0';
+                    icon.classList.remove('rotate-180');
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + 'px';
+                    icon.classList.add('rotate-180');
+                }
+            });
+        });
+
+        // Mobile Menu Logic
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close menu when a link is clicked
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Event Tab Logic
+        const tabButtons = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.dataset.target;
+
+                tabButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.classList.add('text-gray-400');
+                });
+                button.classList.add('active');
+                button.classList.remove('text-gray-400');
+
+                tabContents.forEach(content => {
+                    if (content.id === targetId) {
+                        content.classList.remove('hidden');
+                    } else {
+                        content.classList.add('hidden');
+                    }
+                });
+            });
+        });
+
+        // Animated Counter Logic
+        const counters = document.querySelectorAll('.counter');
+        const speed = 200; // The lower the #, the faster the count
+
+        const animateCounter = (counter) => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const increment = target / speed;
+
+            if (count < target) {
+                counter.innerText = Math.ceil(count + increment);
+                setTimeout(() => animateCounter(counter), 10);
+            } else {
+                counter.innerText = target;
+            }
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounter(entry.target);
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.5 // Trigger when 50% of the element is visible
+        });
+
+        counters.forEach(counter => {
+            observer.observe(counter);
+        });
+
+
+    </script>
+</body>
+</html>
+
